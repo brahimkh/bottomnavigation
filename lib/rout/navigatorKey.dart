@@ -1,11 +1,13 @@
-import 'package:flutter/cupertino.dart';
+
+
+import 'package:flutter/material.dart';
 
 class NavigatorKey{
   NavigatorKey._();
   static final navigatorKey ={
-    '0':GlobalKey<NavigatorState>(),
-    '1':GlobalKey<NavigatorState>(),
-    '2':GlobalKey<NavigatorState>(),
-    '3':GlobalKey<NavigatorState>()
+    '/':GlobalKey<NavigatorState>(),
+    '/clock':GlobalKey<NavigatorState>(),
+    '/notify':GlobalKey<NavigatorState>(),
+    '/add':GlobalKey<NavigatorState>()
   };
 }

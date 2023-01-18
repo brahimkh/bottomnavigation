@@ -11,9 +11,9 @@ class NavigationPage extends StatefulWidget {
 }
 
 class _NavigationPageState extends State<NavigationPage> {
-  int _currenIndex=0;
-  final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
-  final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
+  int _currentIndex=0;
+  String _selectPaged='/';
+  List<String> pages=['/','/clock','/notify','/add'];
   final _navigatorKeys=NavigatorKey.navigatorKey;
 
   @override
@@ -21,31 +21,34 @@ class _NavigationPageState extends State<NavigationPage> {
     return Scaffold(
       body:Stack(
         children: [
-          _buildOffstageNavigator(0),
-          _buildOffstageNavigator(1),
-          _buildOffstageNavigator(2),
-          _buildOffstageNavigator(3),
+          _buildOffstageNavigator('/'),
+          _buildOffstageNavigator('/clock'),
+          _buildOffstageNavigator('/notify'),
+          _buildOffstageNavigator('/add'),
         ],
       ),
       bottomNavigationBar: BottomNavigationPage(
-        onTap: onTaped,
-        currentIndex: _currenIndex,
+        onTap:(int index)=>{onTaped(pages[index],index)} ,
+        currentIndex: _currentIndex,
       ),
     );
   }
-  Widget _buildOffstageNavigator(int index){
+  Widget _buildOffstageNavigator(String val){
     return Offstage(
-      offstage:_currenIndex!=index ,
+      offstage:_selectPaged!=val ,
       child: TabNavigatorPage(
-        navigatorKey:_navigatorKeys[_currenIndex] ,
+        navigatorKey:_navigatorKeys[val] ,
       ),
     );
   }
-  void onTaped(int index) {
-   if(index==_currenIndex){
+  void onTaped(String page,int index) {
+   if(page ==_selectPaged){
      _navigatorKeys[index]?.currentState!.popUntil((route) => route.isFirst);
    }else{
-     setState(() =>_currenIndex=index);
+     setState(() {
+       _selectPaged=pages[index];
+       _currentIndex=index;
+     });
    }
   }
 }

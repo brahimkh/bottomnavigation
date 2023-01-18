@@ -8,7 +8,6 @@ class RoutManager {
   RoutManager._();
 
   static Route<dynamic> routeManagement(RouteSettings rout) {
-    final args = rout.arguments;
     switch (rout.name) {
       case '/':
         return MaterialPageRoute(
